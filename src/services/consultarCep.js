@@ -1,6 +1,6 @@
 async function consultarCEP(cep) {
   if (!/^\d{8}$/.test(cep)) {
-    return { erro: true, mensagem: "CEP inválido. Use 8 números." };
+    return { erro: true, mensagem: "\nCEP inválido. Use 8 números." };
   }
 
   const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
