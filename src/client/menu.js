@@ -1,6 +1,7 @@
-const { perguntar, fecharPrompt } = require('../utils/prompts.js');
 const { consultarClima } = require('../services/consultarClima.js');
 const { consultarCEP } = require('../services/consultarCEP.js');
+const rl = require('readline-sync');
+
 
 async function showMenu() {
   while (true) {
@@ -9,11 +10,11 @@ async function showMenu() {
     console.log("[2] Consultar CEP");
     console.log("[3] Sair");
 
-    const resposta = await perguntar("Escolha uma opção: ");
+    const estado = rl.question('Escolher uma opcao:  ');
 
-    switch (resposta) {
+    switch (estado) {
       case "1": {
-        const cidade = await perguntar("Digite o nome da cidade: ");
+        const cidade = rl.question('Digite o nome da cidade:  ');
         try {
           const resultado = await consultarClima(cidade);
           if (resultado.erro) {
@@ -27,7 +28,7 @@ async function showMenu() {
         break;
       }
       case "2": {
-        const cep = await perguntar("Digite o CEP (apenas números): ");
+        const cep = rl.question('Digite o CEP (apenas números)  ');
         try {
           const resultado = await consultarCEP(cep);
           if (resultado.erro) {
@@ -44,7 +45,6 @@ async function showMenu() {
       }
       case "3":
         console.log("Até logo!");
-        fecharPrompt();
         return;
       default:
         console.log("Opção inválida. Tente novamente.");
